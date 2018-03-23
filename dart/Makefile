@@ -11,13 +11,13 @@ VERSION = 2.0.0-dev-31.0
 # build package
 #
 # all: download extract analyze plist build
-all: download package
+all: download extract package
 
 home:
 	open https://www.dartlang.org/install/archive
 
 clean:
-	rm -rf stage/Dart2.plist
+	rm -rf stage
 
 download: clean
 	mkdir -p stage
