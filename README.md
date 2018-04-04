@@ -24,6 +24,10 @@ https://dl.google.com/go/go1.10.darwin-amd64.pkg
 
 https://nodejs.org/dist/v8.10.0/node-v8.10.0.pkg
 
+### NPM
+
+https://nodejs.org/en/
+
 ### CSharp
 
 https://download.microsoft.com/download/D/C/F/DCFA73BE-93CE-4DA0-AB76-98972FD6E475/dotnet-sdk-2.1.101-osx-gs-x64.pkg
