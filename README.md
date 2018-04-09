@@ -10,9 +10,10 @@ The packagers are published as make files with a concerted attempt at maintainin
 
 Packagers written for:
 
-- Dart
 - Kotlin
+- Scala
 - inetutils (telnet & ftp only)
+- Dart
 
 ## Existing OEM Packages
 
