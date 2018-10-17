@@ -13,6 +13,7 @@ Packagers written for:
 - Kotlin
 - Scala
 - inetutils (telnet & ftp only)
+- nmap
 - Dart
 
 ## Existing OEM Packages
