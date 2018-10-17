@@ -21,7 +21,7 @@ clean:
 
 download: clean
 	mkdir -p stage
-	curl -o stage/inetutils.tgz https://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.gz
+	curl -o stage/inetutils.tgz https://ftp.gnu.org/gnu/inetutils/inetutils-${VERSION}.tar.gz
 
 extract:
 	tar xvf stage/inetutils.tgz -C stage

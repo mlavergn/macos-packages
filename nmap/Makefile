@@ -21,10 +21,11 @@ clean:
 
 download: clean
 	mkdir -p stage
-	curl -o stage/nmap.bz2 https://nmap.org/dist/nmap-7.70.tar.bz2
+	curl -o stage/nmap.tar.bz2 https://nmap.org/dist/nmap-${VERSION}.tar.bz2
 
 extract:
-	bunzip2 stage/nmap.bz2 | tar xvf -
+	bunzip2 stage/nmap.tar.bz2
+	tar xvf stage/nmap.tar -C stage
 	@(cd stage/nmap-$(VERSION); \
 	./configure; \
 	make)
