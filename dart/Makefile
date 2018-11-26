@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.dart2
-VERSION = 2.0.0-dev-31.0
+VERSION = 2.1.0
 
 #
 # build package
@@ -21,7 +21,7 @@ clean:
 
 download: clean
 	mkdir -p stage
-	curl -o stage/dartsdk.zip https://storage.googleapis.com/dart-archive/channels/stable/release/1.24.3/sdk/dartsdk-macos-x64-release.zip
+	curl -o stage/dartsdk.zip https://storage.googleapis.com/dart-archive/channels/stable/release/${VERSION}/sdk/dartsdk-macos-x64-release.zip
 
 extract:
 	unzip stage/dartsdk.zip -d stage
