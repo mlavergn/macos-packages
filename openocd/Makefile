@@ -13,7 +13,7 @@ VERSION = 0.10.0
 all: download extract package
 
 home:
-	open https://evermeet.cx/ffmpeg
+	open https://github.com/gnu-mcu-eclipse/openocd/releases
 
 clean:
 	rm -rf stage
