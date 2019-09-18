@@ -10,11 +10,10 @@ VERSION = 1.2.30
 #
 # build package
 #
-# all: download extract analyze plist build
 all: download extract package
 
 home:
-	open https://github.com/JetBrains/kotlin/releases
+	open https://github.com/JetBrains/kotlin
 
 clean:
 	rm -rf stage

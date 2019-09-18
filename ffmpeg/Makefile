@@ -10,7 +10,6 @@ VERSION = 4.2
 #
 # build package
 #
-# all: download extract analyze plist build
 all: download extract package
 
 home:
