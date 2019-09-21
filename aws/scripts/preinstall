@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ ! -d "/usr/local/aws" ]; then
+	sudo mkdir -p /usr/local/aws
+	sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+fi
