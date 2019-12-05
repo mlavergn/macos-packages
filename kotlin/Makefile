@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.kotlin
-VERSION = 1.2.30
+VERSION = 1.3.61
 
 #
 # build package
@@ -20,7 +20,7 @@ clean:
 
 download: clean
 	mkdir -p stage
-	curl -L -o stage/kotlin.zip https://github.com/JetBrains/kotlin/releases/download/v1.2.30/kotlin-compiler-1.2.30.zip
+	curl -L -o stage/kotlin.zip https://github.com/JetBrains/kotlin/releases/download/v1.3.61/kotlin-compiler-1.3.61.zip
 
 extract:
 	unzip stage/kotlin.zip -d stage
@@ -37,21 +37,3 @@ uninstall:
 	sudo rm -rf /usr/local/kotlin
 	sudo rm -rf /etc/paths.d/kotlin
 	sudo pkgutil --forget $(IDENTIFIER)
-
-# not currently used
-
-# analyze:
-# 	rm -f stage/Dart2.plist
-# 	pkgbuild --analyze --root stage/dart-sdk stage/Dart2.plist
-
-# plist:
-# 	/usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:BundleHasStrictIdentifier bool YES" stage/Dart2.plist 
-# 	plutil -replace BundleIsRelocatable -bool NO stage/Dart2.plist
-# 	plutil -replace RootRelativeBundlePath -string 'stage/dart-sdk' stage/Dart2.plist
-# 	plutil -replace RootRelativeBundlePath -string 'dart-sdk' stage/Dart2.plist
-# 	plutil -replace BundlePostInstallScriptPath -string 'sudo echo "/usr/local/dart/bin" >> /etc/paths.d/dart' stage/Dart2.plist
-
-# sign:
-# 	productsign --sign "Developer ID Installer: ${DEVELOPER}" "stage/Dart2.pkg" "stage/Dart2-signed.pkg"
-# 	productBuild --synthesize --package stage/Dart2.pkg ./Distribution.xml
-# 	productBuild --distribution ./Distribution.xml --resources ./Resources --sign "Developer ID Installer: ${DEVELOPER}" --package-path . stage/Dart2.pkg
