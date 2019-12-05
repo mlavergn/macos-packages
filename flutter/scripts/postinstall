@@ -3,4 +3,5 @@
 if [ ! -d "/etc/paths.d/flutter" ]; then
 	sudo sh -c 'echo "/usr/local/flutter/bin" >> /etc/paths.d/flutter'
 	sudo sh -c 'mv /usr/local/flutter/git /usr/local/flutter/.git'
+	sudo sh -c 'mv /usr/local/flutter/pub-cache /usr/local/flutter/.pub-cache'
 fi
