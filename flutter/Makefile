@@ -32,9 +32,7 @@ extract:
 	# adjust permissions
 	chmod a+w stage/flutter/version
 	chmod -R a+rw stage/flutter/bin/cache
-	chmod -R a+rw stage/flutter/.pub-cache
-	# move the .pub-cache folder since pkgbuild ignores it (move it back in scripts/postinstall)
-	mv stage/flutter/.pub-cache stage/flutter/pub-cache
+	chmod -R 777 stage/flutter/.pub-cache
 
 package:
 	-rm -f stage/Flutter.pkg
