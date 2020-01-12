@@ -30,7 +30,7 @@ extract:
 	chmod +rxrxrx stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/bin --root stage/bin stage/github.pkg
+	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/github.pkg
 
 install:
 	open stage/github.pkg
