@@ -40,5 +40,5 @@ install:
 	open stage/nmap.pkg
 
 uninstall:
-	sudo rm -f /usr/local/bin/nmap
+	sudo pkgutil --files ${IDENTIFIER} | xargs -I F rm -f /usr/local/bin/"F"
 	sudo pkgutil --forget $(IDENTIFIER)
