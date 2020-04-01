@@ -5,7 +5,8 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.flutter
-VERSION = 1.9.1
+VERSION = 1.12.13
+HOTFIX = +hotfix.8
 
 #
 # build package
@@ -21,7 +22,7 @@ clean:
 
 download: clean
 	mkdir -p stage	
-	curl -o stage/flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v1.9.1+hotfix.6-stable.zip
+	curl -o stage/flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v${VERSION}${HOTFIX}-stable.zip
 
 extract:
 	unzip stage/flutter.zip -d stage
@@ -35,11 +36,11 @@ extract:
 	chmod -R 777 stage/flutter/.pub-cache
 
 package:
-	-rm -f stage/Flutter.pkg
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/flutter --root stage/flutter stage/Flutter.pkg
+	-rm -f stage/Flutter*.pkg
+	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/flutter --root stage/flutter stage/Flutter-${VERSION}.pkg
 
 install:
-	open stage/Flutter.pkg
+	open stage/Flutter-${VERSION}.pkg
 
 uninstall:
 	sudo rm -rf /usr/local/flutter
