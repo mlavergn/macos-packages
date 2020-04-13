@@ -1,5 +1,5 @@
 #!/bin/bash
 
-if [ ! -d "/etc/paths.d/dart" ]; then
+if [ ! -d "/etc/paths.d/kotlin" ]; then
 	sudo sh -c 'echo "/usr/local/kotlin/bin" >> /etc/paths.d/kotlin'
 fi
