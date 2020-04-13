@@ -4,8 +4,14 @@
 #
 ###############################################
 
-IDENTIFIER = com.marclavergne.dart2
-VERSION = 2.1.0
+IDENTIFIER = com.marclavergne.dart
+VERSION = 2.7.2
+
+PKGNAME = Dart
+
+DEVNAME = Marc Lavergne
+DEVID = Q6H2FB9YW2
+USERNAME ?= ""
 
 #
 # build package
@@ -28,31 +34,32 @@ extract:
 	chmod +rxrxrx stage/dart-sdk
 	chmod +rxrxrx stage/dart-sdk/bin
 
+codesign:
+	codesign -f -o runtime --timestamp --sign "Developer ID Application: ${DEVNAME} (${DEVID})" stage/dart-sdk/bin/*
+
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/dart --root stage/dart-sdk stage/Dart2.pkg
+	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/dart-sdk/uninstall.sh
+	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/dart --root stage/dart-sdk stage/${PKGNAME}.pkg
+
+pkgsign:
+	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}.pkg stage/${PKGNAME}-signed.pkg
+	mv ${PKGNAME}-${VERSION}-signed.pkg ${PKGNAME}-${VERSION}.pkg
+
+notarize:
+	xcrun altool --notarize-app --type osx --primary-bundle-id ${IDENTIFIER} --username "${USERNAME}" --password "@keychain:ADP" --file stage/${PKGNAME}-${VERSION}.pkg
+
+dist: download extract codesign package pkgsign notarize
+	echo "dist done"
+
+staple:
+	xcrun stapler staple stage/${PKGNAME}-${VERSION}.pkg
+
+release: staple
+	hub release create -m "${PKGNAME} ${VERSION}" -a stage/${PKGNAME}-${VERSION}.pkg -t master "${PKGNAME}-${VERSION}"
+	open "https://github.com/mlavergn/macos-packages/releases"
 
 install:
-	open stage/Dart2.pkg
+	open stage/${PKGNAME}-${VERSION}.pkg
 
 uninstall:
-	sudo rm -rf /usr/local/dart
-	sudo rm -rf /etc/paths.d/dart
-	sudo pkgutil --forget $(IDENTIFIER)
-
-# not currently used
-
-# analyze:
-# 	rm -f stage/Dart2.plist
-# 	pkgbuild --analyze --root stage/dart-sdk stage/Dart2.plist
-
-# plist:
-# 	/usr/libexec/PlistBuddy -c "Add :CFBundleDocumentTypes:BundleHasStrictIdentifier bool YES" stage/Dart2.plist 
-# 	plutil -replace BundleIsRelocatable -bool NO stage/Dart2.plist
-# 	plutil -replace RootRelativeBundlePath -string 'stage/dart-sdk' stage/Dart2.plist
-# 	plutil -replace RootRelativeBundlePath -string 'dart-sdk' stage/Dart2.plist
-# 	plutil -replace BundlePostInstallScriptPath -string 'sudo echo "/usr/local/dart/bin" >> /etc/paths.d/dart' stage/Dart2.plist
-
-# sign:
-# 	productsign --sign "Developer ID Installer: ${DEVELOPER}" "stage/Dart2.pkg" "stage/Dart2-signed.pkg"
-# 	productBuild --synthesize --package stage/Dart2.pkg ./Distribution.xml
-# 	productBuild --distribution ./Distribution.xml --resources ./Resources --sign "Developer ID Installer: ${DEVELOPER}" --package-path . stage/Dart2.pkg
+	/usr/local/dart/uninstall.sh
