@@ -1,5 +1,5 @@
 #!/bin/bash
 
 if [ ! -d "/etc/paths.d/android" ]; then
-	sudo sh -c 'echo "/usr/local/android/sdk/build-tools/29.0.3" >> /etc/paths.d/android'
+	sudo sh -c 'echo "/usr/local/android/sdk/tools/bin" >> /etc/paths.d/android'
 fi

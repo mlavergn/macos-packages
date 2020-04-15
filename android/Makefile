@@ -6,7 +6,8 @@
 
 IDENTIFIER = com.marclavergne.android
 
-VERSION = 29.0.3
+VERSION = 3.6.2
+TOOLSVER = 6200805
 
 PKGNAME = Android
 
@@ -24,6 +25,17 @@ home:
 clean:
 	rm -rf stage
 
+all: download extract package pkgsign
+	echo "done"
+
+#
+# Required:
+# - Android Command Line Tools
+# https://developer.android.com/studio#cmdline-tools
+#
+
+# https://dl.google.com/android/repository/commandlinetools-mac-6200805_latest.zip
+
 # Downloading https://dl.google.com/android/repository/3534162-studio.sdk-patcher.zip
 # Downloading https://dl.google.com/android/repository/build-tools_r29.0.3-macosx.zip
 # Downloading https://dl.google.com/android/repository/emulator-darwin-6306047.zip
@@ -34,30 +46,34 @@ clean:
 
 download:
 	mkdir -p stage
-	curl -o stage/android_src.zip https://dl.google.com/android/repository/sources-29_r01.zip
-	curl -o stage/android_platform.zip https://dl.google.com/android/repository/platform-29_r04.zip
-	curl -o stage/android_tools.zip https://dl.google.com/android/repository/build-tools_r29.0.3-macosx.zip
-	curl -o stage/android_platform_tools.zip https://dl.google.com/android/repository/platform-tools_r29.0.6-darwin.zip
+	curl -o stage/android_sdk.zip https://dl.google.com/android/repository/commandlinetools-mac-${TOOLSVER}_latest.zip
+	# curl -o stage/android_src.zip https://dl.google.com/android/repository/sources-29_r01.zip
+	# curl -o stage/android_platform.zip https://dl.google.com/android/repository/platform-29_r04.zip
+	# curl -o stage/android_tools.zip https://dl.google.com/android/repository/build-tools_r29.0.3-macosx.zip
+	# curl -o stage/android_platform_tools.zip https://dl.google.com/android/repository/platform-tools_r29.0.6-darwin.zip
 
 extract:
 	mkdir -p stage/sdk
-	unzip stage/android_platform_tools.zip -d stage/sdk
-	chmod 755 stage/sdk/platform-tools
+	unzip stage/android_sdk.zip -d stage/sdk
+	chmod 755 stage/sdk/tools
 
-	mkdir -p stage/sdk/build-tools
-	unzip stage/android_tools.zip -d stage/sdk/build-tools
-	mv stage/sdk/build-tools/android-10 stage/sdk/build-tools/29.0.3
-	chmod 755 stage/sdk/build-tools/29.0.3
+	# unzip stage/android_platform_tools.zip -d stage/sdk
+	# chmod 755 stage/sdk/platform-tools
 
-	mkdir -p stage/sdk/platforms
-	unzip stage/android_platform.zip -d stage/sdk/platforms
-	mv stage/sdk/platforms/android-10 stage/sdk/platforms/android-29
-	chmod 755 stage/sdk/platforms/android-29
+	# mkdir -p stage/sdk/build-tools
+	# unzip stage/android_tools.zip -d stage/sdk/build-tools
+	# mv stage/sdk/build-tools/android-10 stage/sdk/build-tools/29.0.3
+	# chmod 755 stage/sdk/build-tools/29.0.3
 
-	mkdir -p stage/sdk/sources
-	unzip stage/android_src.zip -d stage/sdk/sources
-	mv stage/sdk/sources/src stage/sdk/sources/android-29
-	chmod 755 stage/sdk/sources/android-29
+	# mkdir -p stage/sdk/platforms
+	# unzip stage/android_platform.zip -d stage/sdk/platforms
+	# mv stage/sdk/platforms/android-10 stage/sdk/platforms/android-29
+	# chmod 755 stage/sdk/platforms/android-29
+
+	# mkdir -p stage/sdk/sources
+	# unzip stage/android_src.zip -d stage/sdk/sources
+	# mv stage/sdk/sources/src stage/sdk/sources/android-29
+	# chmod 755 stage/sdk/sources/android-29
 
 package:
 	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sdk/uninstall.sh; chmod +x stage/sdk/uninstall.sh
@@ -81,4 +97,4 @@ install:
 	open stage/${PKGNAME}-${VERSION}.pkg
 
 uninstall:
-	/usr/local/android/uninstall.sh
+	/usr/local/android/sdk/uninstall.sh
