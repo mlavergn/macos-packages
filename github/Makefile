@@ -27,7 +27,7 @@ extract:
 	tar xvf stage/hub-darwin-amd64.tgz -C stage
 	mkdir stage/bin
 	mv stage/hub-darwin-amd64-$(VERSION)/bin/hub stage/bin
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/github.pkg

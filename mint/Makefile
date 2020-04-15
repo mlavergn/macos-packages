@@ -25,7 +25,7 @@ download: clean
 
 extract:
 	unzip stage/mint.zip -d stage/bin
-	chmod +rxrxrx stage/bin/mint
+	chmod 755 stage/bin/mint
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/Mint.pkg

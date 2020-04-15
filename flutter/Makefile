@@ -55,7 +55,7 @@ codesign:
 	codesign -f -o runtime --timestamp --sign "Developer ID Application: ${DEVNAME} (${DEVID})" stage/flutter/bin/cache/dart-sdk/bin/dart
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/flutter/uninstall.sh; chmod 777 stage/flutter/uninstall.sh
+	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/flutter/uninstall.sh; chmod 755 stage/flutter/uninstall.sh
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/flutter --root stage/flutter stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:

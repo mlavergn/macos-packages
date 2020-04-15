@@ -26,7 +26,7 @@ download: clean
 extract:
 	-mkdir stage/bin
 	mv stage/firebase stage/bin
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/firebase.pkg

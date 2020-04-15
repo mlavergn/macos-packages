@@ -31,7 +31,7 @@ extract:
 	make)
 	mkdir stage/bin
 	mv stage/nmap-$(VERSION)/nmap stage/bin
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/nmap.pkg

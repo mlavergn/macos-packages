@@ -27,7 +27,7 @@ extract:
 	mkdir stage/bin
 	mv stage/lsar stage/bin
 	mv stage/unar stage/bin
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/unar.pkg

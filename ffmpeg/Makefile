@@ -26,7 +26,7 @@ extract:
 	unzip stage/ffmpeg.zip -d stage
 	mkdir stage/bin
 	mv stage/ffmpeg stage/bin
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/ffmpeg.pkg

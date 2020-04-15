@@ -26,7 +26,7 @@ extract:
 	cd stage; tar -xvf openocd.tgz
 	mkdir stage/openocd
 	mv stage/gnu-mcu-eclipse/openocd/0.10.0-12-20190422-2015/bin stage/openocd
-	chmod +rxrxrx stage/openocd/bin/*
+	chmod 755 stage/openocd/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/openocd --root stage/openocd stage/openocd.pkg

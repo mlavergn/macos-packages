@@ -42,7 +42,7 @@ extract:
 	sdkmanager --sdk_root=stage/sdk "build-tools;28.0.3"
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sdk/uninstall.sh; chmod +x stage/sdk/uninstall.sh
+	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sdk/uninstall.sh; chmod 755 stage/sdk/uninstall.sh
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/android/sdk --root stage/sdk stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:

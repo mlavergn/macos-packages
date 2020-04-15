@@ -23,7 +23,7 @@ download: clean
 	curl -L -o stage/bin/jq https://github.com/stedolan/jq/releases/download/jq-${VERSION}/jq-osx-amd64
 
 extract:
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/jq.pkg

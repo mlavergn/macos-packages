@@ -27,7 +27,7 @@ extract:
 	tar xvf stage/git-lfs-darwin-amd64.tar.gz -C stage
 	mkdir stage/bin
 	mv stage/git-lfs stage/bin
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/bin --root stage/bin stage/gitlfs.pkg

@@ -31,12 +31,12 @@ download: clean
 
 extract:
 	unzip stage/dartsdk.zip -d stage
-	chmod 777 stage/dart-sdk
-	chmod 777 stage/dart-sdk/bin
-	chmod 777 stage/dart-sdk/bin/snapshots
+	chmod 755 stage/dart-sdk
+	chmod 755 stage/dart-sdk/bin
+	chmod 755 stage/dart-sdk/bin/snapshots
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/dart-sdk/uninstall.sh; chmod 777 stage/dart-sdk/uninstall.sh
+	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/dart-sdk/uninstall.sh; chmod 755 stage/dart-sdk/uninstall.sh
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/dart --root stage/dart-sdk stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:

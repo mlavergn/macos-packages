@@ -24,8 +24,8 @@ download: clean
 
 extract:
 	unzip stage/kotlin.zip -d stage
-	chmod +rxrxrx stage/kotlinc
-	chmod +rxrxrx stage/kotlinc/bin
+	chmod 755 stage/kotlinc
+	chmod 755 stage/kotlinc/bin
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/kotlin --root stage/kotlinc stage/Kotlin.pkg

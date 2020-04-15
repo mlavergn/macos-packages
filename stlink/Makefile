@@ -28,7 +28,7 @@ extract:
 	mv stage/usr/local/share stage
 	rm stage/stlink.zip
 	rmdir stage/usr/local stage/usr stage/stlink-${VERSION}-macosx-amd64
-	chmod +rxrxrx stage/bin/*
+	chmod 755 stage/bin/*
 
 package:
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local --root stage stage/stlink.pkg
