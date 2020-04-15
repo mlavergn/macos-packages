@@ -16,8 +16,8 @@ USERNAME ?= ""
 #
 # build package
 #
-# all: download extract analyze plist build
-all: download extract package
+
+all: extract package pkgsign
 
 home:
 	open https://www.dartlang.org/install/archive
@@ -31,24 +31,22 @@ download: clean
 
 extract:
 	unzip stage/dartsdk.zip -d stage
-	chmod +rxrxrx stage/dart-sdk
-	chmod +rxrxrx stage/dart-sdk/bin
-
-codesign:
-	codesign -f -o runtime --timestamp --sign "Developer ID Application: ${DEVNAME} (${DEVID})" stage/dart-sdk/bin/*
+	chmod 777 stage/dart-sdk
+	chmod 777 stage/dart-sdk/bin
+	chmod 777 stage/dart-sdk/bin/snapshots
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/dart-sdk/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/dart --root stage/dart-sdk stage/${PKGNAME}.pkg
+	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/dart-sdk/uninstall.sh; chmod 777 stage/dart-sdk/uninstall.sh
+	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/dart --root stage/dart-sdk stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
-	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}.pkg stage/${PKGNAME}-signed.pkg
-	mv ${PKGNAME}-${VERSION}-signed.pkg ${PKGNAME}-${VERSION}.pkg
+	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg
+	mv stage/${PKGNAME}-${VERSION}-signed.pkg stage/${PKGNAME}-${VERSION}.pkg
 
 notarize:
 	xcrun altool --notarize-app --type osx --primary-bundle-id ${IDENTIFIER} --username "${USERNAME}" --password "@keychain:ADP" --file stage/${PKGNAME}-${VERSION}.pkg
 
-dist: download extract codesign package pkgsign notarize
+dist: download extract package pkgsign notarize
 	echo "dist done"
 
 staple:
