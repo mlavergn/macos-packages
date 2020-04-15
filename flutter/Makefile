@@ -36,11 +36,15 @@ download: clean
 	mkdir -p stage
 	curl -o stage/flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v${VERSION}${HOTFIX}-stable.zip
 
+doctor:
+	ANDROID_HOME=/usr/local/android/sdk flutter doctor -v
+
 extract:
 	unzip stage/flutter.zip -d stage
 	# must run flutter once to update the .git folder
-	ANDROID_HOME=/usr/local/android stage/flutter/bin/flutter doctor
-	# move the .git folder since pkgbuild ignores it (move it back in scripts/postinstall)
+	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor
+	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor --android-licenses
+    # move the .git folder since pkgbuild ignores it (move it back in scripts/postinstall)
 	mv stage/flutter/.git stage/flutter/git
 	# adjust permissions
 	chmod a+w stage/flutter/version
