@@ -14,11 +14,13 @@ DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
 USERNAME ?= ""
 
+.DEFAULT_GOAL := all
+
 #
 # build package
 #
 # all: download extract codesign package pkgsign install
-all: extract package pkgsign install
+all: download extract package pkgsign install
 
 android:
 	open "https://developer.android.com/studio"
@@ -37,13 +39,13 @@ download: clean
 	curl -o stage/flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v${VERSION}${HOTFIX}-stable.zip
 
 doctor:
-	ANDROID_HOME=/usr/local/android/sdk flutter doctor -v
+	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor -v
+	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor --android-licenses
 
 extract:
 	unzip stage/flutter.zip -d stage
 	# must run flutter once to update the .git folder
-	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor
-	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor --android-licenses
+	$(MAKE) doctor
     # move the .git folder since pkgbuild ignores it (move it back in scripts/postinstall)
 	mv stage/flutter/.git stage/flutter/git
 	# adjust permissions

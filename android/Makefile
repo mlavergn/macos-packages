@@ -15,6 +15,8 @@ DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
 USERNAME ?= ""
 
+.DEFAULT_GOAL := all
+
 #
 # build package
 #
@@ -25,7 +27,7 @@ home:
 clean:
 	rm -rf stage
 
-all: extract package pkgsign
+all: download extract package pkgsign
 	echo "done"
 
 download:
@@ -36,10 +38,11 @@ extract:
 	mkdir -p stage/sdk
 	unzip stage/android_sdk.zip -d stage/sdk
 	chmod 755 stage/sdk/tools
-	sdkmanager --sdk_root=stage/sdk "tools"
-	sdkmanager --sdk_root=stage/sdk "platform-tools"
-	sdkmanager --sdk_root=stage/sdk "platforms;android-28"
-	sdkmanager --sdk_root=stage/sdk "build-tools;28.0.3"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "tools"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "platform-tools"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "platforms;android-28"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "build-tools;28.0.3"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "emulator"
 
 package:
 	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sdk/uninstall.sh; chmod 755 stage/sdk/uninstall.sh

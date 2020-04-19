@@ -13,11 +13,14 @@ DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
 USERNAME ?= ""
 
+.DEFAULT_GOAL := all
+
 #
 # build package
 #
 
-all: extract package pkgsign
+all: download extract package pkgsign
+	echo "done"
 
 home:
 	open https://www.dartlang.org/install/archive
