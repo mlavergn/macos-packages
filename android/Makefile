@@ -6,7 +6,7 @@
 
 IDENTIFIER = com.marclavergne.android
 
-VERSION = 3.6.2
+VERSION = 28
 TOOLSVER = 6200805
 
 PKGNAME = Android
@@ -32,21 +32,23 @@ all: download extract package pkgsign
 
 download:
 	mkdir -p stage
-	curl -o stage/android_sdk.zip https://dl.google.com/android/repository/commandlinetools-mac-${TOOLSVER}_latest.zip
+	curl -o stage/android.zip https://dl.google.com/android/repository/commandlinetools-mac-${TOOLSVER}_latest.zip
 
 extract:
-	mkdir -p stage/sdk
-	unzip stage/android_sdk.zip -d stage/sdk
-	chmod 755 stage/sdk/tools
-	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "tools"
-	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "platform-tools"
-	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "platforms;android-28"
-	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "build-tools;28.0.3"
-	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/sdk/tools/bin/sdkmanager --sdk_root=stage/sdk "emulator"
+	mkdir -p stage/android
+	unzip stage/android.zip -d stage/android
+	chmod 755 stage/android/tools
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/android/tools/bin/sdkmanager --channel=1 --sdk_root=stage/android "emulator"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/android/tools/bin/sdkmanager --channel=1 --sdk_root=stage/android "platforms;android-${VERSION}"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/android/tools/bin/sdkmanager --channel=1 --sdk_root=stage/android "platform-tools"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/android/tools/bin/sdkmanager --channel=1 --sdk_root=stage/android "build-tools;28.0.3"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/android/tools/bin/sdkmanager --channel=1 --sdk_root=stage/android "system-images;android-${VERSION};google_apis_playstore;x86_64"
+	SDKMANAGER_OPTS="--add-modules java.se.ee" stage/android/tools/bin/sdkmanager --channel=1 --sdk_root=stage/android "extras;intel;Hardware_Accelerated_Execution_Manager"
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sdk/uninstall.sh; chmod 755 stage/sdk/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/android/sdk --root stage/sdk stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{VERSION}/${VERSION}/g' scripts/androidsim.sh > stage/android/tools/bin/androidsim.sh; chmod 755 stage/android/tools/bin/androidsim.sh
+	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/android/tools/bin/uninstall.sh; chmod 755 stage/android/tools/bin/uninstall.sh
+	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/android --root stage/android stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg
@@ -66,4 +68,17 @@ install:
 	open stage/${PKGNAME}-${VERSION}.pkg
 
 uninstall:
-	/usr/local/android/sdk/uninstall.sh
+	/usr/local/android/tools/bin/uninstall.sh
+
+#
+# Simlator
+#
+
+avdlist:
+	avdmanager list
+
+avdmake:
+	avdmanager create avd --force -d pixel_xl -n PixelXL --abi google_apis_playstore/x86_64 -k 'system-images;android-${VERSION};google_apis_playstore;x86_64'
+
+sim:
+	emulator -sysdir /usr/local/android/system-images/android-${VERSION}/google_apis_playstore/x86_64 -avd PixelXL -skin 1440x2560

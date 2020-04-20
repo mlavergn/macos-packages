@@ -1,6 +1,6 @@
 #!/bin/bash
 
 if [ ! -d "/etc/paths.d/android" ]; then
-	sudo sh -c 'echo "/usr/local/android/sdk/tools/bin" >> /etc/paths.d/android'
-	sudo sh -c 'echo "/usr/local/android/sdk/platform-tools" >> /etc/paths.d/android'
+	sudo sh -c 'echo "/usr/local/android/tools/bin" >> /etc/paths.d/android'
+	sudo sh -c 'echo "/usr/local/android/emulator" >> /etc/paths.d/android'
 fi
