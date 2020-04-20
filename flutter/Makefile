@@ -19,7 +19,6 @@ USERNAME ?= ""
 #
 # build package
 #
-# all: download extract codesign package pkgsign install
 all: download extract package pkgsign install
 
 android:
@@ -39,13 +38,12 @@ download: clean
 	curl -o stage/flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v${VERSION}${HOTFIX}-stable.zip
 
 doctor:
-	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor -v
-	ANDROID_HOME=/usr/local/android/sdk stage/flutter/bin/flutter doctor --android-licenses
+	ANDROID_HOME=/usr/local/android flutter doctor --android-licenses
 
 extract:
 	unzip stage/flutter.zip -d stage
 	# must run flutter once to update the .git folder
-	$(MAKE) doctor
+	./stage/flutter/bin/flutter config --android-sdk /usr/local/android
     # move the .git folder since pkgbuild ignores it (move it back in scripts/postinstall)
 	mv stage/flutter/.git stage/flutter/git
 	# adjust permissions
@@ -57,7 +55,8 @@ codesign:
 	codesign -f -o runtime --timestamp --sign "Developer ID Application: ${DEVNAME} (${DEVID})" stage/flutter/bin/cache/dart-sdk/bin/dart
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/flutter/uninstall.sh; chmod 755 stage/flutter/uninstall.sh
+	cp scripts/fluttercfg.sh stage/flutter/bin
+	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/flutter/bin/uninstall.sh; chmod 755 stage/flutter/bin/uninstall.sh
 	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/flutter --root stage/flutter stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
@@ -78,4 +77,4 @@ install:
 	open stage/${PKGNAME}-${VERSION}.pkg
 
 uninstall:
-	/usr/local/flutter/uninstall.sh
+	/usr/local/flutter/bin/uninstall.sh
