@@ -3,3 +3,7 @@
 if [ ! -d "/usr/local" ]; then
 	sudo mkdir -p /usr/local
 fi
+
+if [ -f "/usr/local/dart/bin/uninstall.sh" ]; then
+	sudo /usr/local/dart/bin/uninstall.sh
+fi
