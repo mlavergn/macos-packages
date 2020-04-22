@@ -43,6 +43,12 @@ bin/uninstall.sh
 ...
 ```
 
+To view files contained in a package file issue the following in a terminal window
+
+```bash
+pkgutil --payload-files Firebase.pkg
+```
+
 ## Usage
 
 All packages current use com.marclavergne.*Package Name* as an identifier. This is easily modified in the Makefile.
