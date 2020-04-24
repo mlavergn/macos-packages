@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/swiftlint" ]; then
+	sudo sh -c 'ln -s /usr/local/swiftlint/swiftlint /usr/local/bin/swiftlint'
+fi
