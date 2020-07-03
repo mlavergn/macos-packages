@@ -5,8 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.flutter
-VERSION = 1.12.13
-HOTFIX = +hotfix.9
+VERSION = 1.17.5
 
 PKGNAME = Flutter
 
@@ -35,7 +34,7 @@ clean:
 
 download: clean
 	mkdir -p stage
-	curl -o stage/flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_v${VERSION}${HOTFIX}-stable.zip
+	curl -o stage/flutter.zip https://storage.googleapis.com/flutter_infra/releases/stable/macos/flutter_macos_${VERSION}-stable.zip
 
 doctor:
 	ANDROID_HOME=/usr/local/android flutter doctor --android-licenses
