@@ -1,0 +1,34 @@
+SED=sed
+VERSION:=2.2.0
+
+CC=gcc
+RM=/bin/rm
+
+SRCS = \
+	src/decompress.c \
+	src/ignore.c \
+	src/lang.c \
+	src/log.c \
+	src/main.c \
+	src/options.c \
+	src/print.c \
+	src/scandir.c \
+	src/search.c \
+	src/util.c
+OBJS = $(subst .c,.o,$(SRCS))
+
+CFLAGS = -O2 -I/usr/local/pcre/include -I/Applications/Xcode-11.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -DPACKAGE_VERSION=\"$(VERSION)\" -D_MAX_PATH=1024 -DHAVE_PTHREAD_H=1 -DHAVE_STRNDUP=1 -DHAVE_FGETLN=1 -DHAVE_GETLINE=1 -DHAVE_REALPATH=1 -DHAVE_STRLCPY=1 -DHAVE_VASPRINTF=1 
+LIBS = -lz -lpthread -lpcre -llzma
+TARGET = ag
+
+all : $(TARGET)
+
+# depend on configure.ac to account for version changes
+$(TARGET) : $(OBJS) configure.ac
+	$(CC) -o $@ $(OBJS) $(LIBS)
+
+.c.o :
+	$(CC) -c $(CFLAGS) -Isrc $< -o $@
+
+clean :
+	$(RM) -f src/*.o $(TARGET)
