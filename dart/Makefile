@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.dart
-VERSION = 2.7.2
+VERSION = 2.8.4
 
 PKGNAME = Dart
 
