@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/apktool" ]; then
+	sudo sh -c 'ln -s /usr/local/apktool/apktool /usr/local/bin/apktool'
+fi
