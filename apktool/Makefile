@@ -58,4 +58,4 @@ install:
 	open stage/${PKGNAME}-${VERSION}.pkg
 
 uninstall:
-	/usr/local/swiftlint/uninstall.sh
+	/usr/local/apktool/uninstall.sh

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/sonar-scanner" ]; then
+	sudo sh -c 'ln -s /usr/local/sonar/bin/sonar-scanner /usr/local/bin/sonar-scanner'
+fi
