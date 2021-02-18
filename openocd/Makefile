@@ -29,11 +29,11 @@ extract:
 	chmod 755 stage/openocd/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/openocd --root stage/openocd stage/openocd.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/openocd --root stage/openocd stage/openocd.pkg
 
 install:
 	open stage/openocd.pkg
 
 uninstall:
 	sudo rm -f /usr/local/bin/openocd
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

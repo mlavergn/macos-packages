@@ -26,11 +26,11 @@ extract:
 	chmod 755 stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/jq.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/jq.pkg
 
 install:
 	open stage/jq.pkg
 
 uninstall:
 	sudo rm -f /usr/local/bin/jq
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

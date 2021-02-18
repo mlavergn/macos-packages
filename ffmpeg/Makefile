@@ -29,11 +29,11 @@ extract:
 	chmod 755 stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/ffmpeg.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/ffmpeg.pkg
 
 install:
 	open stage/ffmpeg.pkg
 
 uninstall:
 	sudo rm -f /usr/local/bin/ffmpeg
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

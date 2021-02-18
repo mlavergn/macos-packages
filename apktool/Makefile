@@ -33,8 +33,8 @@ download: clean
 	chmod +xxx stage/apktool/apktool
 
 pkg:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/apktool/uninstall.sh; chmod 755 stage/apktool/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/apktool --root stage/apktool stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/apktool/uninstall.sh; chmod 755 stage/apktool/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/apktool --root stage/apktool stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg

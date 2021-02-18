@@ -25,16 +25,16 @@ download: clean
 
 extract:
 	tar xvf stage/inetutils.tgz -C stage
-	@(cd stage/inetutils-$(VERSION); \
+	@(cd stage/inetutils-${VERSION}; \
 	./configure --disable-servers; \
 	make)
 	mkdir stage/bin
-	mv stage/inetutils-$(VERSION)/telnet/telnet stage/bin
-	mv stage/inetutils-$(VERSION)/ftp/ftp stage/bin
+	mv stage/inetutils-${VERSION}/telnet/telnet stage/bin
+	mv stage/inetutils-${VERSION}/ftp/ftp stage/bin
 	chmod 755 stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/bin --root stage/bin stage/inetutils.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/bin --root stage/bin stage/inetutils.pkg
 
 install:
 	open stage/inetutils.pkg
@@ -42,4 +42,4 @@ install:
 uninstall:
 	sudo rm -f /usr/local/bin/telnet
 	sudo rm -f /usr/local/bin/ftp
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

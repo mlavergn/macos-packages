@@ -26,15 +26,15 @@ download: clean
 extract:
 	tar xvf stage/hub-darwin-amd64.tgz -C stage
 	mkdir stage/bin
-	mv stage/hub-darwin-amd64-$(VERSION)/bin/hub stage/bin
+	mv stage/hub-darwin-amd64-${VERSION}/bin/hub stage/bin
 	chmod 755 stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/github.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/github.pkg
 
 install:
 	open stage/github.pkg
 
 uninstall:
 	sudo rm -f /usr/local/bin/hub
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

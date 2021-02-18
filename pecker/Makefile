@@ -36,15 +36,15 @@ build:
 	cp stage/Pecker-${VERSION}/.build/x86_64-apple-macosx/release/pecker stage/bin
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/${PRODUCT}.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/${PRODUCT}.pkg
 
 install:
 	open stage/${PRODUCT}.pkg
 
 uninstall:
 	sudo pkgutil --files ${IDENTIFIER} | xargs -I F rm -f /usr/local/bin/"F"
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}
 
 sign:
-	pkgbuild --identifier $(IDENTIFIER) --sign ${DEVID} --root stage/bin stage/${PRODUCT}.pkg
+	pkgbuild --identifier ${IDENTIFIER} --sign ${DEVID} --root stage/bin stage/${PRODUCT}.pkg
 

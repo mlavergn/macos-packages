@@ -30,11 +30,11 @@ extract:
 	chmod 755 stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/unar.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/unar.pkg
 
 install:
 	open stage/unar.pkg
 
 uninstall:
 	sudo rm -f /usr/local/bin/lsar /usr/local/bin/unar
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

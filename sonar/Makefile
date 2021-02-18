@@ -35,8 +35,8 @@ extract:
 	mv stage/sonar-scanner-${VERSION}-macosx stage/sonar
 
 pkg:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sonar/uninstall.sh; chmod 755 stage/sonar/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/sonar --root stage/sonar stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sonar/uninstall.sh; chmod 755 stage/sonar/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/sonar --root stage/sonar stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg

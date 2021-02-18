@@ -26,11 +26,11 @@ extract:
 	unzip stage/awscli.zip -d stage
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/aws --root stage/awscli-bundle stage/awscli.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/aws --root stage/awscli-bundle stage/awscli.pkg
 
 install:
 	open stage/awscli.pkg
 
 uninstall:
 	sudo rm -rf /usr/local/aws /usr/local/bin/aws
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

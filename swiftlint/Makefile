@@ -34,8 +34,8 @@ extract:
 	unzip stage/swiftlint.zip -d stage/swiftlint
 
 pkg:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/swiftlint/uninstall.sh; chmod 755 stage/swiftlint/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/swiftlint --root stage/swiftlint stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/swiftlint/uninstall.sh; chmod 755 stage/swiftlint/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/swiftlint --root stage/swiftlint stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg

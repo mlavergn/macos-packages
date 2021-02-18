@@ -31,7 +31,7 @@ extract:
 	chmod 755 stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local --root stage stage/stlink.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local --root stage stage/stlink.pkg
 
 install:
 	open stage/stlink.pkg
@@ -41,4 +41,4 @@ uninstall:
 	sudo rm -rf /usr/local/lib/include/stlink*
 	sudo rm -f /usr/local/lib/libstlink
 	sudo rm -f /usr/local/share/man/man1/st-*.1
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

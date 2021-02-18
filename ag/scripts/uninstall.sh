@@ -1,4 +1,4 @@
 #!/bin/bash
 
 sudo rm -r /usr/local/bin/ag
-sudo pkgutil --forget TheSilverSearcher
+sudo pkgutil --forget {replace}

@@ -28,7 +28,7 @@ extract:
 	chmod 755 stage/kotlinc/bin
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/kotlin --root stage/kotlinc stage/Kotlin.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/kotlin --root stage/kotlinc stage/Kotlin.pkg
 
 install:
 	open stage/Kotlin.pkg
@@ -36,4 +36,4 @@ install:
 uninstall:
 	sudo rm -rf /usr/local/kotlin
 	sudo rm -rf /etc/paths.d/kotlin
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

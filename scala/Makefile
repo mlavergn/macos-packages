@@ -27,7 +27,7 @@ extract:
 	unzip stage/scala.zip -d stage
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/sbt --root stage/sbt stage/Scala.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/sbt --root stage/sbt stage/Scala.pkg
 
 install:
 	open stage/Scala.pkg
@@ -35,4 +35,4 @@ install:
 uninstall:
 	sudo rm -rf /usr/local/sbt
 	sudo rm -rf /etc/paths.d/sbt
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

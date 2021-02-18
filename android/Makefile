@@ -56,10 +56,10 @@ scripts:
 	cp scripts/androidcfg.sh stage/android/tools/bin; chmod 755 stage/android/tools/bin/androidcfg.sh
 	sed 's/{VERSION}/${VERSION}/g' scripts/androidsim.sh > stage/android/tools/bin/androidsim.sh; chmod 755 stage/android/tools/bin/androidsim.sh
 	sed 's/{VERSION}/${VERSION}/g' scripts/makeandroidsimapp.sh > stage/android/tools/bin/makeandroidsimapp.sh; chmod 755 stage/android/tools/bin/makeandroidsimapp.sh
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/android/tools/bin/uninstall.sh; chmod 755 stage/android/tools/bin/uninstall.sh
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/android/tools/bin/uninstall.sh; chmod 755 stage/android/tools/bin/uninstall.sh
 
 package: patch scripts
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/android --root stage/android stage/${PKGNAME}-${VERSION}.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/android --root stage/android stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg

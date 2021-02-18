@@ -5,7 +5,11 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.gitlfs
-VERSION = 2.7.0
+VERSION = 2.13.2
+
+DEVNAME = Marc Lavergne
+DEVID = Q6H2FB9YW2
+USERNAME = "mlavergn@gmail.com"
 
 #
 # build package
@@ -21,20 +25,36 @@ clean:
 
 download: clean
 	mkdir -p stage
-	curl -o stage/git-lfs-darwin-amd64.tar.gz -J -L https://github.com/git-lfs/git-lfs/releases/download/v${VERSION}/git-lfs-darwin-amd64-v${VERSION}.tar.gz
-
+	curl -o stage/git-lfs.zip -J -L https://github.com/git-lfs/git-lfs/releases/download/v${VERSION}/git-lfs-darwin-amd64-v${VERSION}.zip
+	
 extract:
-	tar xvf stage/git-lfs-darwin-amd64.tar.gz -C stage
-	mkdir stage/bin
-	mv stage/git-lfs stage/bin
-	chmod 755 stage/bin/*
+	mkdir stage/git-lfs
+	unzip stage/git-lfs.zip -d stage/git-lfs
+	chmod 755 stage/git-lfs/git-lfs
 
-package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/bin --root stage/bin stage/gitlfs.pkg
+pkg:
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/git-lfs/uninstall.sh; chmod 755 stage/git-lfs/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/git-lfs --root stage/git-lfs stage/git-lfs-${VERSION}.pkg
 
-install:
-	open stage/gitlfs.pkg
+pkgsign:
+	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/git-lfs-${VERSION}.pkg stage/git-lfs-${VERSION}-signed.pkg
+	mv stage/git-lfs-${VERSION}-signed.pkg stage/git-lfs-${VERSION}.pkg
 
 uninstall:
-	sudo rm -f /usr/local/bin/git-lfs
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo /usr/local/git-lfs/uninstall.sh
+
+# notarize:
+# 	xcrun altool --notarize-app --type osx --primary-bundle-id ${IDENTIFIER} --username "${USERNAME}" --password "@keychain:ADP" --file stage/git-lfs-${VERSION}.pkg
+
+# staple:
+# 	xcrun stapler staple stage/git-lfs-${VERSION}.pkg
+
+release:
+	hub release create -m "git-lfs ${VERSION}" -a stage/git-lfs-${VERSION}.pkg -t master "git-lfs-${VERSION}"
+	open "https://github.com/mlavergn/macos-packages/releases"
+
+install:
+	open stage/git-lfs-${VERSION}.pkg
+
+uninstall:
+	/usr/local/swiftformat/uninstall.sh

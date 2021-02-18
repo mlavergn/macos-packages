@@ -39,8 +39,8 @@ extract:
 	chmod 755 stage/dart-sdk/bin/snapshots
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/dart-sdk/uninstall.sh; chmod 755 stage/dart-sdk/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/dart --root stage/dart-sdk stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/dart-sdk/uninstall.sh; chmod 755 stage/dart-sdk/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/dart --root stage/dart-sdk stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg

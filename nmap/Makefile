@@ -26,19 +26,19 @@ download: clean
 extract:
 	bunzip2 stage/nmap.tar.bz2
 	tar xvf stage/nmap.tar -C stage
-	@(cd stage/nmap-$(VERSION); \
+	@(cd stage/nmap-${VERSION}; \
 	./configure; \
 	make)
 	mkdir stage/bin
-	mv stage/nmap-$(VERSION)/nmap stage/bin
+	mv stage/nmap-${VERSION}/nmap stage/bin
 	chmod 755 stage/bin/*
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/nmap.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/nmap.pkg
 
 install:
 	open stage/nmap.pkg
 
 uninstall:
 	sudo pkgutil --files ${IDENTIFIER} | xargs -I F rm -f /usr/local/bin/"F"
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

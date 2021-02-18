@@ -31,8 +31,8 @@ extract:
 	unzip stage/pandoc.zip -d stage
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/pandoc-${VERSION}/bin/uninstall.sh; chmod 755 stage/pandoc-${VERSION}/bin/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/pandoc --root stage/pandoc-${VERSION} stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/pandoc-${VERSION}/bin/uninstall.sh; chmod 755 stage/pandoc-${VERSION}/bin/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/pandoc --root stage/pandoc-${VERSION} stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg

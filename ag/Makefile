@@ -32,7 +32,8 @@ build:
 	cp stage/the_silver_searcher-${VERSION}/ag stage/bin
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/${PKGNAME}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/ag/uninstall.sh; chmod 755 stage/ag/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/${PKGNAME}.pkg
 
 install:
 	open stage/${PKGNAME}.pkg

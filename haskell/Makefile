@@ -27,7 +27,7 @@ extract:
 	cd stage/ghc-${VERSION}; ./configure --prefix=/usr/local/haskell; make install DESTDIR=${PWD}/stage
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local --root stage/usr/local stage/haskell.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local --root stage/usr/local stage/haskell.pkg
 
 install:
 	open stage/haskell.pkg
@@ -35,4 +35,4 @@ install:
 uninstall:
 	sudo rm -rf /usr/local/haskell
 	sudo rm -rf /etc/paths.d/haskell
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

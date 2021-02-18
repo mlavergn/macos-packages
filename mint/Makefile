@@ -28,14 +28,14 @@ extract:
 	chmod 755 stage/bin/mint
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/bin --root stage/bin stage/Mint.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/Mint.pkg
 
 install:
 	open stage/Mint.pkg
 
 uninstall:
 	sudo rm -f /usr/local/bin/mint
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}
 
 # not currently used
 

@@ -30,8 +30,8 @@ extract:
 	tar xvf stage/java.tar -C stage
 
 package:
-	sed 's/{IDENTIFIER}/${IDENTIFIER}/' scripts/uninstall.sh > stage/jre${VERSION}.jre/Contents/Home/bin/uninstall.sh; chmod 755 stage/jre${VERSION}.jre/Contents/Home/bin/uninstall.sh
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --scripts scripts --install-location /usr/local/java --root stage/jre${VERSION}.jre/Contents/Home stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/jre${VERSION}.jre/Contents/Home/bin/uninstall.sh; chmod 755 stage/jre${VERSION}.jre/Contents/Home/bin/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/java --root stage/jre${VERSION}.jre/Contents/Home stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/git-lfs" ]; then
+	sudo sh -c 'ln -s /usr/local/git-lfs/git-lfs /usr/local/bin/git-lfs'
+fi

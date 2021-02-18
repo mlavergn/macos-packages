@@ -35,14 +35,14 @@ extract:
 	rm -r stage/local/lib/pkgconfig
 
 package:
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local --root stage/local stage/${PRODUCT}.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local --root stage/local stage/${PRODUCT}.pkg
 
 install:
 	open stage/${PRODUCT}.pkg
 
 uninstall:
 	sudo pkgutil --files ${IDENTIFIER} | xargs -I F rm -f /usr/local/local/"F"
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}
 
 #
 # enhanced Package
@@ -61,4 +61,4 @@ product: icon
 	productbuild --distribution Distribution.xml --resources stage --package-path stage stage/${PRODUCT}.pkg
 
 sign:
-	pkgbuild --identifier $(IDENTIFIER) --sign ${DEVID} --root stage/local stage/${PRODUCT}.pkg
+	pkgbuild --identifier ${IDENTIFIER} --sign ${DEVID} --root stage/local stage/${PRODUCT}.pkg

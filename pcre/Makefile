@@ -38,11 +38,11 @@ prepare:
 	cp scripts/uninstall.sh stage/pcre
 
 package: prepare
-	pkgbuild --version $(VERSION) --identifier $(IDENTIFIER) --install-location /usr/local/pcre --root stage/pcre stage/${PKGNAME}.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/pcre --root stage/pcre stage/${PKGNAME}.pkg
 
 install:
 	open stage/${PKGNAME}.pkg
 
 uninstall:
 	sudo scripts/uninstall.sh
-	sudo pkgutil --forget $(IDENTIFIER)
+	sudo pkgutil --forget ${IDENTIFIER}

@@ -2,4 +2,4 @@
 
 sudo rm /etc/paths.d/dart
 sudo rm -r /usr/local/dart
-sudo pkgutil --forget {IDENTIFIER}
+sudo pkgutil --forget {replace}
