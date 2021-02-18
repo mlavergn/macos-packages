@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/swiftformat" ]; then
+	sudo sh -c 'ln -s /usr/local/swiftformat/swiftformat /usr/local/bin/swiftformat'
+fi
