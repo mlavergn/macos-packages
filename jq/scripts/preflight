@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ ! -d "/usr/local" ]; then
+	sudo /bin/mkdir -p /usr/local/bin
+fi
+
+if [ -f "/usr/local/{pkgname}/uninstall.sh" ]; then
+	sudo /usr/local/{pkgname}/uninstall.sh
+fi
+
+exit 0

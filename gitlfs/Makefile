@@ -15,7 +15,7 @@ USERNAME = "mlavergn@gmail.com"
 # build package
 #
 # all: download extract analyze plist build
-all: download extract package
+all: download extract pkg
 
 home:
 	open https://git-lfs.github.com
