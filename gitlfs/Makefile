@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.gitlfs
-VERSION = 2.13.2
+VERSION = 2.13.3
 
 DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
