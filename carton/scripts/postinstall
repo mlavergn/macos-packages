@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -d "/etc/paths.d/carton" ]; then
+	sudo sh -c 'echo "/usr/local/carton/bin" >> /etc/paths.d/carton'
+fi
