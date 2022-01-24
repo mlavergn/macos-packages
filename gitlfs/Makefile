@@ -40,6 +40,9 @@ pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/git-lfs-${VERSION}.pkg stage/git-lfs-${VERSION}-signed.pkg
 	mv stage/git-lfs-${VERSION}-signed.pkg stage/git-lfs-${VERSION}.pkg
 
+install:
+	open stage/git-lfs-${VERSION}.pkg
+
 uninstall:
 	sudo /usr/local/git-lfs/uninstall.sh
 
@@ -52,9 +55,3 @@ uninstall:
 release:
 	hub release create -m "git-lfs ${VERSION}" -a stage/git-lfs-${VERSION}.pkg -t master "git-lfs-${VERSION}"
 	open "https://github.com/mlavergn/macos-packages/releases"
-
-install:
-	open stage/git-lfs-${VERSION}.pkg
-
-uninstall:
-	/usr/local/swiftformat/uninstall.sh
