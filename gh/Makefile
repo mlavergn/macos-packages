@@ -44,5 +44,4 @@ install:
 	open stage/gh-${VERSION}.pkg
 
 uninstall:
-	-sudo rm -f /usr/local/bin/gh
-	-sudo pkgutil --forget ${IDENTIFIER}
+	-sudo /usr/local/bin/gh/uninstall.sh
