@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -d "/usr/local" ]; then
+	sudo mkdir -p /usr/local/bin
+fi
+
+if [ -f "/usr/local/hub/uninstall.sh" ]; then
+	sudo /usr/local/hub/uninstall.sh
+fi

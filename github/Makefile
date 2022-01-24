@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.github
-VERSION = 2.12.3
+VERSION = 2.14.2
 
 #
 # build package
@@ -25,16 +25,19 @@ download: clean
  
 extract:
 	tar xvf stage/hub-darwin-amd64.tgz -C stage
-	mkdir stage/bin
-	mv stage/hub-darwin-amd64-${VERSION}/bin/hub stage/bin
-	chmod 755 stage/bin/*
+	mkdir stage/hub
+	mv stage/hub-darwin-amd64-${VERSION}/* stage/hub
+	chmod 755 stage/hub/bin/*
 
 package:
-	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/github.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/hub/uninstall.sh; chmod 755 stage/hub/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/hub --root stage/hub stage/github-${VERSION}.pkg
+
+dist: download extract package
+	echo "Done"
 
 install:
-	open stage/github.pkg
+	open stage/github-${VERSION}.pkg
 
 uninstall:
-	sudo rm -f /usr/local/bin/hub
-	sudo pkgutil --forget ${IDENTIFIER}
+	-sudo /usr/local/bin/hub/uninstall.sh
