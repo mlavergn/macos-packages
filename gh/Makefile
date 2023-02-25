@@ -4,8 +4,10 @@
 #
 ###############################################
 
+.DEFAULT_GOAL := all
+
 IDENTIFIER = com.marclavergne.gh
-VERSION = 2.4.0
+VERSION = 2.14.2
 
 DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2

@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER := com.marclavergne.swiftlint
-VERSION := 0.39.2
+VERSION := 0.46.3
 
 PKGNAME = SwiftLint
 
@@ -18,7 +18,7 @@ USERNAME ?= ""
 #
 # build package
 #
-all: download extract package
+all: download extract pkg
 
 home:
 	open https://github.com/realm/SwiftLint
