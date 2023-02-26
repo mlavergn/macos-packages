@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/oclint" ]; then
+	sudo sh -c 'ln -s /usr/local/oclint/bin/oclint /usr/local/bin/oclint'
+fi
