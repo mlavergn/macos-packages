@@ -1,5 +1,5 @@
 #!/bin/bash
 
-if [ ! -f "/usr/local/bin/oclint" ]; then
-	sudo sh -c 'ln -s /usr/local/oclint/bin/oclint /usr/local/bin/oclint'
+if [ ! -d "/etc/paths.d/oclint" ]; then
+	sudo sh -c 'echo "/usr/local/oclint/bin" >> /etc/paths.d/oclint'
 fi
