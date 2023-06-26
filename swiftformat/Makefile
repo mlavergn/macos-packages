@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER := com.marclavergne.swiftformat
-VERSION := 0.47.11
+VERSION := 0.51.12
 
 PKGNAME = SwiftFormat
 
@@ -18,7 +18,7 @@ USERNAME ?= ""
 #
 # build package
 #
-all: download extract package
+all: download extract pkg
 
 home:
 	open https://github.com/nicklockwood/SwiftFormat

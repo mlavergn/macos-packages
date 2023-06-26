@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER := com.marclavergne.swiftlint
-VERSION := 0.46.3
+VERSION := 0.52.3
 
 PKGNAME = SwiftLint
 
