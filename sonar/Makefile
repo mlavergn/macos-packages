@@ -28,28 +28,19 @@ clean:
 
 download: clean
 	mkdir -p stage/sonar
-	curl -o stage/sonar.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${VERSION}-macosx.zip
+	curl -o stage/sonar.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${VERSION}.zip
 
 extract:
 	unzip stage/sonar.zip -d stage
-	mv stage/sonar-scanner-${VERSION}-macosx stage/sonar
+	mkdir -p stage/sonar
+	mv stage/sonar-scanner-${VERSION}/* stage/sonar
 
 pkg:
-	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sonar/uninstall.sh; chmod 755 stage/sonar/uninstall.sh
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/sonar/uninstall.sh; chmod 755 stage/sonar/uninstall.sh stage/sonar
 	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/sonar --root stage/sonar stage/${PKGNAME}-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/${PKGNAME}-${VERSION}.pkg stage/${PKGNAME}-${VERSION}-signed.pkg
-
-# notarize:
-# 	xcrun altool --notarize-app --type osx --primary-bundle-id ${IDENTIFIER} --username "${USERNAME}" --password "@keychain:ADP" --file stage/${PKGNAME}-${VERSION}.pkg
-
-# NZID = 11570ec5-8c8d-4b93-870a-667ff6fc33ce
-# status:
-# 	xcrun altool --notarization-info "${NZID}" --username ${USERNAME} --password "@keychain:ADP"
-
-# staple:
-# 	xcrun stapler staple stage/${PKGNAME}-${VERSION}.pkg
 
 release:
 	hub release create -m "${PKGNAME} ${VERSION}" -a stage/${PKGNAME}-${VERSION}.pkg -t master "${PKGNAME}-${VERSION}"
@@ -61,5 +52,5 @@ install:
 uninstall:
 	-/usr/local/sonar/uninstall.sh
 
-update: all uninstall install
+update: uninstall install
 	echo "done"
