@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER := com.marclavergne.sonar
-VERSION := 4.5.0.2216
+VERSION := 4.8.0.2856
 
 PKGNAME = sonar
 
@@ -18,7 +18,7 @@ USERNAME = "mlavergn@gmail.com"
 #
 # build package
 #
-all: download extract package
+all: download extract pkg
 
 home:
 	open https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/
@@ -59,4 +59,7 @@ install:
 	open stage/${PKGNAME}-${VERSION}.pkg
 
 uninstall:
-	/usr/local/sonar/uninstall.sh
+	-/usr/local/sonar/uninstall.sh
+
+update: all uninstall install
+	echo "done"
