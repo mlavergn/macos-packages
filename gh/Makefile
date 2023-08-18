@@ -7,7 +7,7 @@
 .DEFAULT_GOAL := all
 
 IDENTIFIER = com.marclavergne.gh
-VERSION = 2.14.2
+VERSION = 2.32.1
 
 DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
@@ -20,7 +20,7 @@ USERNAME = "mlavergn@gmail.com"
 all: download extract pkg
 
 home:
-	open https://github.com/github/hub
+	open https://github.com/cli/cli
 
 clean:
 	rm -rf stage
