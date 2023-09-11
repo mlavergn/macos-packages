@@ -7,7 +7,7 @@
 .DEFAULT_GOAL := all
 
 IDENTIFIER = com.marclavergne.gh
-VERSION = 2.32.1
+VERSION = 2.34.0
 
 DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
@@ -26,13 +26,13 @@ clean:
 	rm -rf stage
 
 download: clean
-	mkdir -p stage
-	curl -o stage/gh-cli.tgz -J -L https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_macOS_amd64.tar.gz
+	mkdir -p stage	
+	curl -o stage/gh-cli.tgz -J -L https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_macOS_arm64.zip
  
 extract:
-	tar xvf stage/gh-cli.tgz -C stage
+	unzip stage/gh-cli.tgz -d stage
 	mkdir stage/gh
-	mv stage/gh_${VERSION}_macOS_amd64/* stage/gh
+	mv stage/gh_${VERSION}_macOS_arm64/* stage/gh
 	chmod 755 stage/gh/bin/*
 
 pkg:
