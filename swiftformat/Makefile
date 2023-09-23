@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER := com.marclavergne.swiftformat
-VERSION := 0.52.2
+VERSION := 0.52.4
 
 PKGNAME = SwiftFormat
 
