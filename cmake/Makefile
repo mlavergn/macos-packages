@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER := com.marclavergne.cmake
-VERSION := 3.24.1
+VERSION := 3.27.7
 
 PKGNAME = cmake
 
@@ -28,18 +28,22 @@ clean:
 
 download: clean
 	mkdir -p stage/cmake
-	curl -o stage/cmake.tgz -L https://github.com/Kitware/CMake/releases/download/v3.24.1/cmake-3.24.1.tar.gz
+	curl -o stage/cmake.tgz -L https://github.com/Kitware/CMake/releases/download/v${VERSION}/cmake-${VERSION}-macos-universal.tar.gz
 
 extract:
 	cd stage; tar -xvf cmake.tgz
-	mv stage/cmake-3.24.1/cmake-3.24.1 stage/cmake
+	mkdir -p stage/cmake
+	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/bin stage/cmake
+	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/doc stage/cmake
+	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/man stage/cmake
+	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/share stage/cmake
 
 build:
 	cd stage/cmake; ./bootstrap; make MAKE=/usr/bin/make
 
 pkg:
 	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/cmake/uninstall.sh; chmod 755 stage/cmake/uninstall.sh
-	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/cmake --root stage/cmake --filter "[.]cmake$$" --filter "[.]cpp$$" --filter "[.]cxx$$" --filter "[.]c$$" --filter "[.]h$$" --filter "[.]in$$" --filter CMakeFiles --filter bootstrap --filter Bootstrap.cmk --filter configure --filter Source --filter Tests stage/${PKGNAME}-${VERSION}.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/cmake --root stage/cmake stage/${PKGNAME}-${VERSION}.pkg
 
 pkgfiles:
 	pkgutil --payload-files stage/${PKGNAME}-${VERSION}.pkg

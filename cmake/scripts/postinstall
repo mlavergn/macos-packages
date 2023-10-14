@@ -1,5 +1,5 @@
 #!/bin/bash
 
 if [ ! -f "/usr/local/bin/cmake" ]; then
-	sudo sh -c 'ln -s /usr/local/cmake/bin/cmake /usr/local/bin/cmake'
+	sudo sh -c 'echo "/usr/local/cmake/bin" >> /etc/paths.d/cmake'
 fi
