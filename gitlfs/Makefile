@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.gitlfs
-VERSION = 2.13.3
+VERSION = 3.4.1
 
 DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
@@ -25,20 +25,24 @@ clean:
 
 download: clean
 	mkdir -p stage
-	curl -o stage/git-lfs.zip -J -L https://github.com/git-lfs/git-lfs/releases/download/v${VERSION}/git-lfs-darwin-amd64-v${VERSION}.zip
+	curl -o stage/git-lfs.zip -J -L https://github.com/git-lfs/git-lfs/releases/download/v${VERSION}/git-lfs-darwin-arm64-v${VERSION}.zip
 	
 extract:
 	mkdir stage/git-lfs
 	unzip stage/git-lfs.zip -d stage/git-lfs
-	chmod 755 stage/git-lfs/git-lfs
+	mkdir stage/bin
+	mv stage/git-lfs/git-lfs-${VERSION}/git-lfs stage/bin
 
 pkg:
 	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/git-lfs/uninstall.sh; chmod 755 stage/git-lfs/uninstall.sh
-	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/git-lfs --root stage/git-lfs stage/git-lfs-${VERSION}.pkg
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/git-lfs --root stage/bin stage/git-lfs-${VERSION}.pkg
 
 pkgsign:
 	productsign --sign "Developer ID Installer: ${DEVNAME} (${DEVID})" stage/git-lfs-${VERSION}.pkg stage/git-lfs-${VERSION}-signed.pkg
 	mv stage/git-lfs-${VERSION}-signed.pkg stage/git-lfs-${VERSION}.pkg
+
+dist: download extract pkg install
+	@echo "Completed"
 
 install:
 	open stage/git-lfs-${VERSION}.pkg
