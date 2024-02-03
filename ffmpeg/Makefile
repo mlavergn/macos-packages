@@ -5,7 +5,7 @@
 ###############################################
 
 IDENTIFIER = com.marclavergne.ffmpeg
-VERSION = 4.2
+VERSION = 6.1.1
 
 #
 # build package
@@ -30,6 +30,9 @@ extract:
 
 package:
 	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --install-location /usr/local/bin --root stage/bin stage/ffmpeg.pkg
+
+dist: download extract package install
+	@echo "Completed"
 
 install:
 	open stage/ffmpeg.pkg
