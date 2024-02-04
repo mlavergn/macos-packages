@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/v" ]; then
+	sudo sh -c 'ln -s /usr/local/vlang/v /usr/local/bin/v'
+	sudo /usr/local/bin/v help
+fi
