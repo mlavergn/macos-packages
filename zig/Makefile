@@ -44,6 +44,9 @@ pkg:
 # staple:
 # 	xcrun stapler staple stage/${PKGNAME}-${VERSION}.pkg
 
+dist: download extract pkg install
+	@echo "Completed"
+
 release:
 	hub release create -m "${PKGNAME} ${VERSION}" -a stage/${PKGNAME}-${VERSION}.pkg -t master "${PKGNAME}-${VERSION}"
 	open "https://github.com/mlavergn/macos-packages/releases"
