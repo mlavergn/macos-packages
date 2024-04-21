@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/ollama" ]; then
+	sudo sh -c 'ln -s /usr/local/ollama/ollama /usr/local/bin/ollama'
+fi
