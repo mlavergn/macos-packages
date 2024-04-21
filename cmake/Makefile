@@ -38,9 +38,6 @@ extract:
 	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/man stage/cmake
 	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/share stage/cmake
 
-build:
-	cd stage/cmake; ./bootstrap; make MAKE=/usr/bin/make
-
 pkg:
 	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/cmake/uninstall.sh; chmod 755 stage/cmake/uninstall.sh
 	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/cmake --root stage/cmake stage/${PKGNAME}-${VERSION}.pkg
