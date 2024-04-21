@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ ! -f "/usr/local/bin/lld" ]; then
+	sudo sh -c 'echo "/usr/local/lld/bin" >> /etc/paths.d/lld'
+fi
