@@ -4,10 +4,9 @@
 #
 ###############################################
 
-IDENTIFIER := com.marclavergne.cmake
-VERSION := 3.27.7
-
 PKGNAME = cmake
+IDENTIFIER := com.marclavergne.${PKGNAME}
+VERSION := 3.29.2
 
 DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
@@ -27,20 +26,20 @@ clean:
 	rm -rf stage
 
 download: clean
-	mkdir -p stage/cmake
-	curl -o stage/cmake.tgz -L https://github.com/Kitware/CMake/releases/download/v${VERSION}/cmake-${VERSION}-macos-universal.tar.gz
+	mkdir -p stage/${PKGNAME}
+	curl -o stage/${PKGNAME}.tgz -L https://github.com/Kitware/CMake/releases/download/v${VERSION}/${PKGNAME}-${VERSION}-macos-universal.tar.gz
 
 extract:
-	cd stage; tar -xvf cmake.tgz
-	mkdir -p stage/cmake
-	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/bin stage/cmake
-	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/doc stage/cmake
-	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/man stage/cmake
-	mv stage/cmake-${VERSION}-macos-universal/CMake.app/Contents/share stage/cmake
+	cd stage; tar -xvf ${PKGNAME}.tgz
+	mkdir -p stage/${PKGNAME}
+	mv stage/${PKGNAME}-${VERSION}-macos-universal/CMake.app/Contents/bin stage/${PKGNAME}
+	mv stage/${PKGNAME}-${VERSION}-macos-universal/CMake.app/Contents/doc stage/${PKGNAME}
+	mv stage/${PKGNAME}-${VERSION}-macos-universal/CMake.app/Contents/man stage/${PKGNAME}
+	mv stage/${PKGNAME}-${VERSION}-macos-universal/CMake.app/Contents/share stage/${PKGNAME}
 
 pkg:
-	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/cmake/uninstall.sh; chmod 755 stage/cmake/uninstall.sh
-	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/cmake --root stage/cmake stage/${PKGNAME}-${VERSION}.pkg
+	sed 's/{replace}/${IDENTIFIER}/' scripts/uninstall.sh > stage/${PKGNAME}/uninstall.sh; chmod 755 stage/${PKGNAME}/uninstall.sh
+	pkgbuild --version ${VERSION} --identifier ${IDENTIFIER} --scripts scripts --install-location /usr/local/${PKGNAME} --root stage/${PKGNAME} stage/${PKGNAME}-${VERSION}.pkg
 
 pkgfiles:
 	pkgutil --payload-files stage/${PKGNAME}-${VERSION}.pkg
@@ -63,4 +62,4 @@ install:
 	open stage/${PKGNAME}-${VERSION}.pkg
 
 uninstall:
-	/usr/local/cmake/uninstall.sh
+	/usr/local/${PKGNAME}/uninstall.sh
