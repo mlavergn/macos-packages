@@ -28,7 +28,7 @@ clean:
 
 download: clean
 	mkdir -p stage/swiftlint
-	curl -o stage/swiftlint.zip -L https://github.com/realm/SwiftLint/releases/download/0.39.2/portable_swiftlint.zip
+	curl -o stage/swiftlint.zip -L https://github.com/realm/SwiftLint/releases/download/${VERSION}/portable_swiftlint.zip
 
 extract:
 	unzip stage/swiftlint.zip -d stage/swiftlint

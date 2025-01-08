@@ -7,7 +7,7 @@
 .DEFAULT_GOAL := all
 
 IDENTIFIER = com.marclavergne.gh
-VERSION = 2.44.1
+VERSION = 2.57.0
 
 DEVNAME = Marc Lavergne
 DEVID = Q6H2FB9YW2
