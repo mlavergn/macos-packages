@@ -5,7 +5,8 @@
 ###############################################
 
 IDENTIFIER := com.marclavergne.zig
-VERSION := 0.13.0
+VERSION := 0.14.0-dev
+BUILD := ".2627+6a21d18ad"
 
 PKGNAME = zig
 
@@ -27,7 +28,7 @@ clean:
 
 download: clean
 	mkdir -p stage/zig
-	curl -o stage/zig.tar.xz -J -L https://ziglang.org/download/${VERSION}/zig-macos-aarch64-${VERSION}.tar.xz
+	curl -o stage/zig.tar.xz -J -L https://ziglang.org/builds/zig-macos-aarch64-${VERSION}${BUILD}.tar.xz
 
 extract:
 	cd stage; tar -xvf zig.tar.xz
